@@ -26,35 +26,42 @@ namespace _2._0_Калькулятор
                             "9. Ln\t10. Log10\t11. Exp\t12. !\n" +
                             "13. 1/x\t14. x^y");
                         op = int.Parse(Console.ReadLine());
-                        if (op == 5 || op == 6 || op == 7 || op == 8
+
+                        try
+                        {
+                            if (op == 5 || op == 6 || op == 7 || op == 8
                             || op == 9 || op == 10 || op == 11 || op == 12 || op == 13)
-                        {                            
-                            z = Calculate1(x, op);
-                            Console.WriteLine(z);
-
-                        }
-
-
-                        else if (op == 1 || op == 2 || op == 3 || op == 4 || op == 14)
-                        {
-                            try
                             {
-                                Console.WriteLine("Введите второе число");
-                                y = double.Parse(Console.ReadLine());
-                                z = Calculate2(x, y, op);
+                                z = Calculate1(x, op);
                                 Console.WriteLine(z);
+
                             }
-                            catch (Exception)
+                            else if (op == 1 || op == 2 || op == 3 || op == 4 || op == 14)
                             {
-                                Console.WriteLine("Неверный формат числа (2)");
+                                try
+                                {
+                                    Console.WriteLine("Введите второе число");
+                                    y = double.Parse(Console.ReadLine());
+                                    z = Calculate2(x, y, op);
+                                    Console.WriteLine(z);
+                                }
+                                catch (Exception)
+                                {
+                                    Console.WriteLine("Неверный формат числа (2)");
+                                }
+
                             }
-                            
+                            //else
+                            //{
+                            //    throw new Exception("else Неверная команда");
+                            //}
                         }
-                        else
+                        catch (Exception)
                         {
-                            throw new Exception("Неверная команда");
+                            Console.WriteLine("catch Неверная команда");
                         }
-                    }
+                }
+
                     catch (Exception)
                     {
                         Console.WriteLine("Неверный формат команды");
@@ -111,8 +118,8 @@ namespace _2._0_Калькулятор
                                 {
                                     if (x % 1 == 0 && x >= 0)
                                     {
-                                        int i = (int)x;
-                                        n = Factorial(i);
+                                        //int i = (int)x;
+                                        n = Factorial(x);
                                         return n;
                                     }
                                     else
@@ -200,13 +207,13 @@ namespace _2._0_Калькулятор
                     double atanAngle = Math.Atan(angle);
                     return atanAngle;                    
                 }
-                static int Factorial(int x)
+                static double Factorial(double x)
                 {
                     if (x == 0)
                         return 1;                    
                     else
                     {
-                        int result = 1;
+                        double result = 1;
                         for (int i = 1; i <= x; i++)
                         {
                             result *= i;
