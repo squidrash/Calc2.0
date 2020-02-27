@@ -8,12 +8,52 @@ namespace _2._0_Калькулятор
         {
             while (true)
             {
-                Calc();
-
-                Console.ReadLine();                
+                double result = Calc();
+                Console.WriteLine(result);
+                
+                    
+                while (true)
+                {
+                    Console.Clear();
+                    Console.WriteLine(result);
+                    try
+                    {
+                        Console.WriteLine("Введите номер операции");
+                    Console.WriteLine("1. +\t2. -\t3. *\t4. /\n" +
+                    "5. sin\t6. cos\t7. tg\t8. arctg\n" +
+                    "9. Ln\t10. Log10\t11. Exp\t12. !\n" +
+                    "13. 1/x\t14. x^y");
+                    int r = int.Parse(Console.ReadLine());
+                        if (r == 5 || r == 6 || r == 7 || r == 8
+                            || r == 9 || r == 10 || r == 11 || r == 12 || r == 13)
+                        {
+                            result = Calculate1(result, r);
+                            Console.WriteLine(result);
+                        }
+                        else if (r == 1 || r == 2 || r == 3 || r == 4 || r == 14)
+                        {
+                            try
+                            {
+                                Console.WriteLine("Введите число");
+                                double y = double.Parse(Console.ReadLine());
+                                result = Calculate2(result, y, r);
+                                Console.WriteLine(result);                                    
+                            }
+                            catch (Exception)
+                            {
+                                Console.WriteLine("Неверный формат числа (n)");
+                            }
+                        }
+                    }
+                    catch(Exception e)
+                    {
+                    Console.WriteLine(e.Message);
+                    }                    
+                }
+                
             }
         }
-        static void Calc()
+        static double Calc()
         {
             Console.Clear();
             double x, y, z;
@@ -40,7 +80,7 @@ namespace _2._0_Калькулятор
                         || op == 9 || op == 10 || op == 11 || op == 12 || op == 13)
                         {
                             z = Calculate1(x, op);
-                            Console.WriteLine(z);
+                            return z;
 
                         }
                         else if (op == 1 || op == 2 || op == 3 || op == 4 || op == 14)
@@ -50,7 +90,7 @@ namespace _2._0_Калькулятор
                                 Console.WriteLine("Введите второе число");
                                 y = double.Parse(Console.ReadLine());
                                 z = Calculate2(x, y, op);
-                                Console.WriteLine(z);
+                                return z;
                             }
                             catch (Exception)
                             {
@@ -79,8 +119,9 @@ namespace _2._0_Калькулятор
             {
                 Console.WriteLine("Неверный формат. Введите первое число");
             }
+            return 0;
         }
-
+        
         static double Calculate1(double x, int op)
         {
             double n = 0;
@@ -125,13 +166,13 @@ namespace _2._0_Калькулятор
                                 return n;
                             }
                             else
-                                throw new Exception("Число должно быть целое и больше 0");
+                                throw new Exception("Число должно быть целое и больше 0");                            
                         }
                         catch (Exception e)
                         {
                             Console.WriteLine(e.Message);
-                        }
-                        break;
+                            return n = 0;
+                        }                        
                     case 13:
                         n = OneX(x);
                         return n;
@@ -163,7 +204,9 @@ namespace _2._0_Калькулятор
                         return n;
                     case 4:
                         if (y == 0)
-                            throw new Exception("Деление на 0");
+                        {
+                            throw new Exception("Деление на 0");                            
+                        }
                         else
                         {
                             n = Divide(x, y);
@@ -179,7 +222,7 @@ namespace _2._0_Калькулятор
             }
             catch (Exception e)
             {
-                Console.WriteLine($"{e.Message} ошибка в catch calculate2");
+                Console.WriteLine($"{e.Message} ошибка в catch calculate2");                
             }
             return n;
         }
